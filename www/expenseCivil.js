@@ -105,7 +105,8 @@ function calcStep1(){
 	}
 	rateImageup=Math.round(Math.floor(rateImageup*allocateImageup*1000)/10)/100;
 	originalRateImageup=rateImageup;
-	if(correctionArea==1){
+//	if(correctionArea==1){    //2015/05/28
+	if(correctionBigcity==0){ //2015/05/28
 		correctionRateImageup=1.5*allocateImageup;
 	}
 	else{
@@ -151,9 +152,13 @@ function calcStep1(){
 	if(correctionBigcity==1){
 		rateKyoutsuukasetsuBigsityCorrection=1.5;
 	}
-	else{
+	else
+	if(correctionBigcity==2){
 		rateKyoutsuukasetsuBigsityCorrection=1;
 	}
+	else{
+		rateKyoutsuukasetsuBigsityCorrection=1.3;
+	}	
 	rateKyoutsuukasetsu=rateKyoutsuukasetsuBigsityCorrection*rateKyoutsuukasetsu;
 //共通仮設費率施工地補正
 	if(constructionSegment!=9 && constructionSegment!=19 && constructionSegment!=20){
@@ -195,6 +200,28 @@ function calcStep1(){
 function calcStep2(){ 
 //現場管理費率係数
 	rateGenbakanriList=new Array();
+	rateGenbakanriList[0]=[42.02,1169,-0.211,14.75];//河川工事
+	rateGenbakanriList[1]=[28.22,52.6,-0.0395,23.2];//河川・道路構造物工事
+	rateGenbakanriList[2]=[26.9,104,-0.0858,17.57];//海岸工事
+	rateGenbakanriList[3]=[32.73,80,-0.0567,24.71];//道路改良工事
+	rateGenbakanriList[4]=[39.06,105.6,-0.0631,28.56];//鋼橋架設工事
+	rateGenbakanriList[5]=[30.09,113.1,-0.084,19.84];//Ｐ・Ｃ橋工事
+	rateGenbakanriList[6]=[39.39,622.2,-0.1751,16.52];//舗装工事
+	rateGenbakanriList[7]=[44.58,1281.7,-0.2131,15.48];//砂防・地すべり等工事
+	rateGenbakanriList[8]=[41.68,366.3,-0.1379,21.03];//公園工事
+	rateGenbakanriList[9]=[58.82,2235.6,-0.2308,18.72];//電線共同溝工事
+	rateGenbakanriList[10]=[52.66,1570,-0.2154,18.08];//情報ボックス工事
+	rateGenbakanriList[11]=[51.14,316.8,-0.1257,31.27];//道路維持工事
+	rateGenbakanriList[12]=[41.28,166.7,-0.0962,28.34];//河川維持工事
+	rateGenbakanriList[13]=[48.95,367.7,-0.1251,25.23];//共同溝等工事(1)
+	rateGenbakanriList[14]=[37.5,110.6,-0.0671,26.28];//共同溝等工事(2)
+	rateGenbakanriList[15]=[43.96,203.6,-0.0951,26.56];//トンネル工事
+	rateGenbakanriList[16]=[33.46,50.8,-0.0259,29.17];//下水道工事(1)
+	rateGenbakanriList[17]=[36.91,213.5,-0.1089,20.73];//下水道工事(2)
+	rateGenbakanriList[18]=[31.58,48.4,-0.0265,27.44];//下水道工事(3)
+	rateGenbakanriList[19]=[22.6,301.3,-0.1327,15.56];//コンクリートダム
+	rateGenbakanriList[20]=[33.08,166.5,-0.0828,26.2];//フィルダム
+/*	
 	rateGenbakanriList[0]=[38.13,862.8,-0.1979,14.28];//河川工事 
 	rateGenbakanriList[1]=[25.89,40,-0.0276,22.58];//河川・道路構造物工事 
 	rateGenbakanriList[2]=[24.58,78.3,-0.0735,17.07];//海岸工事 
@@ -216,6 +243,7 @@ function calcStep2(){
 	rateGenbakanriList[18]=[29.71,38.7,-0.0164,27.24];//
 	rateGenbakanriList[19]=[21.73,229.7,-0.1208,15.47];//コンクリートダム 
 	rateGenbakanriList[20]=[31.7,123.8,-0.0698,26.05];//フィルダム 
+*/	
 //純工事費
 	costJyunkouji=expenseKyoutsuuKasetsu+cost[1];
 	costJyunkouji=Math.round(Math.floor(costJyunkouji*Math.pow(10,7))/10)/Math.pow(10,6);
@@ -256,9 +284,13 @@ function calcStep2(){
 	if(correctionBigcity==1){
 		genbakanriBigcityCorrection=1.2;
 	}
-	else{
+	else
+	if(correctionBigcity==2){
 		genbakanriBigcityCorrection=1;
 	}
+	else{
+		genbakanriBigcityCorrection=1.1;
+	}	
 	rateGenbakanri=genbakanriBigcityCorrection*rateGenbakanri;
 //施工地補正	
 	if(constructionSegment!=9 && constructionSegment!=19 && constructionSegment!=20){
@@ -302,14 +334,17 @@ function calcStep3(){
 //率計算一般管理費対象額=直接工事費-直工に含まれる準備費-準備費に含まれる処分費+共通仮設費+現場管理費+計上対象処分費.
 	Gp=cost[1]-cost[9]-cost[10]+expenseKyoutsuuKasetsu+expenseGenbaKanri+allocateShobunCost;
 	if(Gp<=5000000){
-		rateIppanKanri=14.38;
+		//rateIppanKanri=14.38;
+		rateIppanKanri=20.29;
 	}
 	else
 	if(3000000000<Gp){
-		rateIppanKanri=7.22;
+		//rateIppanKanri=7.22;
+		rateIppanKanri=7.41;
 	}
 	else{
-		rateIppanKanri=-2.57651*Math.LOG10E*Math.log(Gp)+31.63531
+		//rateIppanKanri=-2.57651*Math.LOG10E*Math.log(Gp)+31.63531
+		rateIppanKanri=-4.63586*Math.LOG10E*Math.log(Gp)+51.34242
 	}
 	rateIppanKanri=Math.round(Math.floor(rateIppanKanri*1000)/10)/100;
 	originalRateIppankanri=rateIppanKanri;
