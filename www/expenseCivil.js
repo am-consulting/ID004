@@ -106,7 +106,8 @@ function calcStep1(){
 	rateImageup=Math.round(Math.floor(rateImageup*allocateImageup*1000)/10)/100;
 	originalRateImageup=rateImageup;
 //	if(correctionArea==1){    //2015/05/28
-	if(correctionBigcity==0){ //2015/05/28
+//	if(correctionBigcity==0){ //2015/05/28
+	if(correctionBigcity==0 || correctionArea==1){ //2015/07/10
 		correctionRateImageup=1.5*allocateImageup;
 	}
 	else{
@@ -148,7 +149,7 @@ function calcStep1(){
 	}
 	rateKyoutsuukasetsu=Math.round(Math.floor(rateKyoutsuukasetsu*1000)/10)/100;
 	originalRateKyoutsuukasetsu=rateKyoutsuukasetsu;
-//大都市補正
+//共通仮設費率大都市補正
 	if(correctionBigcity==1){
 		rateKyoutsuukasetsuBigsityCorrection=1.5;
 	}
@@ -157,13 +158,23 @@ function calcStep1(){
 		rateKyoutsuukasetsuBigsityCorrection=1;
 	}
 	else{
-		rateKyoutsuukasetsuBigsityCorrection=1.3;
+		if(constructionSegment==4 || constructionSegment==6 || constructionSegment==9 || constructionSegment==11){//2015/07/10
+			rateKyoutsuukasetsuBigsityCorrection=1.3;
+		}//2015/07/10
+		else{//2015/07/10
+			rateKyoutsuukasetsuBigsityCorrection=1;//2015/07/10
+		}//2015/07/10
 	}	
 	rateKyoutsuukasetsu=rateKyoutsuukasetsuBigsityCorrection*rateKyoutsuukasetsu;
 //共通仮設費率施工地補正
 	if(constructionSegment!=9 && constructionSegment!=19 && constructionSegment!=20){
 		if(correctionArea==1){
-			rateKyoutsuukasetsuAreaCorrection=2;
+			if(constructionSegment!=4 && constructionSegment!=6 && constructionSegment!=9 && constructionSegment!=11){//2015/07/10
+				rateKyoutsuukasetsuAreaCorrection=2;
+			}//2015/07/10
+			else{//2015/07/10
+				rateKyoutsuukasetsuAreaCorrection=0;//2015/07/10
+			}//2015/07/10	
 		}
 		else
 		if(correctionArea==2){
@@ -280,7 +291,7 @@ function calcStep2(){
 	}
 	rateGenbakanri=Math.round(Math.floor(rateGenbakanri*1000)/10)/100;
 	originalRateGenbakanri=rateGenbakanri;
-//大都市補正
+//現場管理費率大都市補正
 	if(correctionBigcity==1){
 		genbakanriBigcityCorrection=1.2;
 	}
@@ -289,13 +300,23 @@ function calcStep2(){
 		genbakanriBigcityCorrection=1;
 	}
 	else{
-		genbakanriBigcityCorrection=1.1;
+		if(constructionSegment==4 || constructionSegment==6 || constructionSegment==9 || constructionSegment==11){//2015/07/10
+			genbakanriBigcityCorrection=1.1;
+		}//2015/07/10
+		else{//2015/07/10
+			genbakanriBigcityCorrection=1;//2015/07/10
+		}//2015/07/10
 	}	
 	rateGenbakanri=genbakanriBigcityCorrection*rateGenbakanri;
-//施工地補正	
+//現場管理費率施工地補正	
 	if(constructionSegment!=9 && constructionSegment!=19 && constructionSegment!=20){
 		if(correctionArea==1){
-			rateGenbakanriAreaCorrection=1.5;
+			if(constructionSegment!=4 && constructionSegment!=6 && constructionSegment!=9 && constructionSegment!=11){//2015/07/10
+				rateGenbakanriAreaCorrection=1.5;
+			}//2015/07/10
+			else{//2015/07/10
+				rateGenbakanriAreaCorrection=0;//2015/07/10
+			}//2015/07/10	
 		}
 		else
 		if(correctionArea==2){
