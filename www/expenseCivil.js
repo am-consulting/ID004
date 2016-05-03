@@ -1,20 +1,23 @@
 <!--
 function calcStep1(){
 	constructionType=new Array();
-	constructionType=["河川工事","河川・道路構造物工事","海岸工事","道路改良工事","鋼橋架設工事","PC橋工事","舗装工事","砂防・地すべり等工事","公園工事","電線共同溝工事","情報BOX工事","道路維持工事","河川維持工事","共同溝等工事1","共同溝等工事2","トンネル工事","下水道工事1","下水道工事2","下水道工事3","コンクリートダム工事","フィルダム工事"];
+	constructionType=["河川工事","河川・道路構造物工事","海岸工事","道路改良工事","鋼橋架設工事","PC橋工事","舗装工事","砂防・地すべり等工事","公園工事","電線共同溝工事","情報BOX工事","道路維持工事","河川維持工事","共同溝等工事1","共同溝等工事2","トンネル工事","下水道工事1","下水道工事2","下水道工事3","コンクリートダム工事","フィルダム工事","橋梁保全工事"];//20160503
 	rateKyoutsuukasetsuList=new Array();
 	rateKyoutsuukasetsuList[0]=[12.53,238.6,-0.1888,4.77];//河川工事
-	rateKyoutsuukasetsuList[1]=[26.94,6907.7,-0.3554,4.37];//河川・道路構造物工事
+//	rateKyoutsuukasetsuList[1]=[26.94,6907.7,-0.3554,4.37];//河川・道路構造物工事
+	rateKyoutsuukasetsuList[1]=[20.77,1228.3,-0.2614,5.45];//河川・道路構造物工事 20160503
 	rateKyoutsuukasetsuList[2]=[13.08,407.9,-0.2204,4.24];//海岸工事
 	rateKyoutsuukasetsuList[3]=[12.78,57,-0.0958,7.83];//道路改良工事
-	rateKyoutsuukasetsuList[4]=[26.1,633,-0.2043,9.18];//鋼橋架設工事
+//	rateKyoutsuukasetsuList[4]=[26.1,633,-0.2043,9.18];//鋼橋架設工事
+	rateKyoutsuukasetsuList[4]=[38.36,10668.4,-0.3606,6.06];//鋼橋架設工事 20160503
 	rateKyoutsuukasetsuList[5]=[27.04,1636.8,-0.2629,7.05];//PC橋工事
 	rateKyoutsuukasetsuList[6]=[17.09,435.1,-0.2074,5.92];//舗装工事
 	rateKyoutsuukasetsuList[7]=[15.19,624.5,-0.2381,4.49];//砂防・地すべり等工事
 	rateKyoutsuukasetsuList[8]=[10.8,48,-0.0956,6.62];//公園工事
 	rateKyoutsuukasetsuList[9]=[9.96,40,-0.0891,6.31];//電線共同溝工事
 	rateKyoutsuukasetsuList[10]=[18.93,494.9,-0.2091,6.5];//情報BOX工事
-	rateKyoutsuukasetsuList[11]=[16.64,34596.3,-0.4895,4.2];//道路維持工事
+//	rateKyoutsuukasetsuList[11]=[16.64,34596.3,-0.4895,4.2];//道路維持工事
+	rateKyoutsuukasetsuList[11]=[23.94,4118.1,-0.3548,5.97];//道路維持工事 20160503
 	rateKyoutsuukasetsuList[12]=[8.34,26.8,-0.0748,6.76];//河川維持工事
 	rateKyoutsuukasetsuList[13]=[8.86,68.3,-0.1267,4.53];//共同溝等工事1
 	rateKyoutsuukasetsuList[14]=[13.79,92.5,-0.1181,7.37];//共同溝等工事2
@@ -24,6 +27,7 @@ function calcStep1(){
 	rateKyoutsuukasetsuList[18]=[7.64,13.5,-0.0353,6.34];//下水道工事3
 	rateKyoutsuukasetsuList[19]=[12.29,105.2,-0.11,9.02];//コンクリートダム工事
 	rateKyoutsuukasetsuList[20]=[7.57,43.7,-0.0898,5.88];//フィルダム工事
+	rateKyoutsuukasetsuList[21]=[27.32,7050.2,-0.3558,6.79];//橋梁保全工事 20160503
 	cost=new Array();
 	cost[1]=parseFloat(document.form1.a.value);//直接工事費
 	cost[2]=parseFloat(document.form1.b.value);//桁等購入費
@@ -52,6 +56,7 @@ function calcStep1(){
 		correctionContract=0;
 	}
 	allocateImageup=parseFloat(document.form1.allocateImageup.value);
+	correctionRateImageup=parseFloat(document.form1.correctionRateImageup.value);//20160503
 	correctionMaebaraikin=parseFloat(document.form1.correctionMaebaraikin.value);
 	correctionArea=parseFloat(document.form1.correctionArea.value);
 	correctionBigcity=parseFloat(document.form1.correctionBigcity.value);
@@ -105,6 +110,7 @@ function calcStep1(){
 	}
 	rateImageup=Math.round(Math.floor(rateImageup*allocateImageup*1000)/10)/100;
 	originalRateImageup=rateImageup;
+/*20160503
 //	if(correctionArea==1){    //2015/05/28
 //	if(correctionBigcity==0){ //2015/05/28
 	if(correctionBigcity==0 || correctionArea==1){ //2015/07/10
@@ -113,6 +119,7 @@ function calcStep1(){
 	else{
 		correctionRateImageup=0;
 	}
+20160503*/	
 	rateImageup=Math.round(Math.floor((rateImageup+correctionRateImageup)*1000)/10)/100;
 	Ki=(Pi*rateImageup/100)*allocateImageup;
 	Ki=Math.round(Math.floor(Ki*Math.pow(10,7))/10)/Math.pow(10,6);
@@ -133,10 +140,18 @@ function calcStep1(){
 		lowerLimit=10000000;
 		upperLimit=2000000000;
 	}
-	else{
+	else
+	if(constructionSegment<=20){
 		lowerLimit=300000000;
 		upperLimit=5000000000;
 	}
+//20160503	
+	else
+	if(constructionSegment==21){
+		lowerLimit=6000000;
+		upperLimit=300000000;
+	}
+//20160503	
 	if(P<=lowerLimit){
 		rateKyoutsuukasetsu=rateKyoutsuukasetsuList[constructionSegment][0];
 	}
@@ -150,6 +165,7 @@ function calcStep1(){
 	rateKyoutsuukasetsu=Math.round(Math.floor(rateKyoutsuukasetsu*1000)/10)/100;
 	originalRateKyoutsuukasetsu=rateKyoutsuukasetsu;
 //共通仮設費率大都市補正
+/*
 	if(correctionBigcity==1){
 		rateKyoutsuukasetsuBigsityCorrection=1.5;
 	}
@@ -165,8 +181,26 @@ function calcStep1(){
 			rateKyoutsuukasetsuBigsityCorrection=1;//2015/07/10
 		}//2015/07/10
 	}	
+*/
+//20160503	
+	if(correctionBigcity==0){
+		rateKyoutsuukasetsuBigsityCorrection=1.0;//非適用
+	}
+	else
+	if(correctionBigcity==1){
+		rateKyoutsuukasetsuBigsityCorrection=2.0;//大都市補正(1)
+	}
+	else
+	if(correctionBigcity==2){
+		rateKyoutsuukasetsuBigsityCorrection=1.5;//大都市補正(2)
+	}
+	else{
+		rateKyoutsuukasetsuBigsityCorrection=1.3;//地域補正
+	}
+//20160503	
 	rateKyoutsuukasetsu=rateKyoutsuukasetsuBigsityCorrection*rateKyoutsuukasetsu;
 //共通仮設費率施工地補正
+/*
 	if(constructionSegment!=9 && constructionSegment!=19 && constructionSegment!=20){
 		if(correctionArea==1){
 			if(constructionSegment!=4 && constructionSegment!=6 && constructionSegment!=9 && constructionSegment!=11){//2015/07/10
@@ -191,6 +225,23 @@ function calcStep1(){
 	else{
 		rateKyoutsuukasetsuAreaCorrection=0;
 	}
+*/	
+//20160503
+	if(correctionArea==1){
+		rateKyoutsuukasetsuAreaCorrection=2;
+	}
+	else
+	if(correctionArea==2){
+		rateKyoutsuukasetsuAreaCorrection=1;
+	}
+	else
+	if(correctionArea==3){
+		rateKyoutsuukasetsuAreaCorrection=1.5;
+	}
+	else{
+		rateKyoutsuukasetsuAreaCorrection=0;
+	}
+//20160503
 	rateKyoutsuukasetsu=Math.round(Math.floor((rateKyoutsuukasetsu+rateKyoutsuukasetsuAreaCorrection)*1000)/10)/100;
 	if(P<=lowerLimit || upperLimit<P){
 		kyoutsuuKasetsuCoefA="*";
@@ -212,17 +263,20 @@ function calcStep2(){
 //現場管理費率係数
 	rateGenbakanriList=new Array();
 	rateGenbakanriList[0]=[42.02,1169,-0.211,14.75];//河川工事
-	rateGenbakanriList[1]=[28.22,52.6,-0.0395,23.2];//河川・道路構造物工事
+//	rateGenbakanriList[1]=[28.22,52.6,-0.0395,23.2];//河川・道路構造物工事
+	rateGenbakanriList[1]=[41.29,420.8,-0.1473,19.88];//河川・道路構造物工事 20160503
 	rateGenbakanriList[2]=[26.9,104,-0.0858,17.57];//海岸工事
 	rateGenbakanriList[3]=[32.73,80,-0.0567,24.71];//道路改良工事
-	rateGenbakanriList[4]=[39.06,105.6,-0.0631,28.56];//鋼橋架設工事
+//	rateGenbakanriList[4]=[39.06,105.6,-0.0631,28.56];//鋼橋架設工事
+	rateGenbakanriList[4]=[46.66,276.1,-0.1128,26.66];//鋼橋架設工事 20160503
 	rateGenbakanriList[5]=[30.09,113.1,-0.084,19.84];//Ｐ・Ｃ橋工事
 	rateGenbakanriList[6]=[39.39,622.2,-0.1751,16.52];//舗装工事
 	rateGenbakanriList[7]=[44.58,1281.7,-0.2131,15.48];//砂防・地すべり等工事
 	rateGenbakanriList[8]=[41.68,366.3,-0.1379,21.03];//公園工事
 	rateGenbakanriList[9]=[58.82,2235.6,-0.2308,18.72];//電線共同溝工事
 	rateGenbakanriList[10]=[52.66,1570,-0.2154,18.08];//情報ボックス工事
-	rateGenbakanriList[11]=[51.14,316.8,-0.1257,31.27];//道路維持工事
+//	rateGenbakanriList[11]=[51.14,316.8,-0.1257,31.27];//道路維持工事
+	rateGenbakanriList[11]=[58.61,605.1,-0.1609,31.23];//道路維持工事 20160503
 	rateGenbakanriList[12]=[41.28,166.7,-0.0962,28.34];//河川維持工事
 	rateGenbakanriList[13]=[48.95,367.7,-0.1251,25.23];//共同溝等工事(1)
 	rateGenbakanriList[14]=[37.5,110.6,-0.0671,26.28];//共同溝等工事(2)
@@ -232,6 +286,7 @@ function calcStep2(){
 	rateGenbakanriList[18]=[31.58,48.4,-0.0265,27.44];//下水道工事(3)
 	rateGenbakanriList[19]=[22.6,301.3,-0.1327,15.56];//コンクリートダム
 	rateGenbakanriList[20]=[33.08,166.5,-0.0828,26.2];//フィルダム
+	rateGenbakanriList[21]=[63.1,1508.7,-0.2014,29.6];//橋梁保全工事 20160503
 /*	
 	rateGenbakanriList[0]=[38.13,862.8,-0.1979,14.28];//河川工事 
 	rateGenbakanriList[1]=[25.89,40,-0.0276,22.58];//河川・道路構造物工事 
@@ -275,10 +330,18 @@ function calcStep2(){
 		lowerLimit=10000000;
 		upperLimit=2000000000;
 	}
-	else{
+	else
+	if(constructionSegment<=20){
 		lowerLimit=300000000;
 		upperLimit=5000000000;
 	}
+//20160503	
+	else
+	if(constructionSegment==21){
+		lowerLimit=7000000;
+		upperLimit=300000000;
+	}
+//20160503	
 	if(Np<=lowerLimit){
 	rateGenbakanri=rateGenbakanriList[constructionSegment][0];
 	}
@@ -292,6 +355,7 @@ function calcStep2(){
 	rateGenbakanri=Math.round(Math.floor(rateGenbakanri*1000)/10)/100;
 	originalRateGenbakanri=rateGenbakanri;
 //現場管理費率大都市補正
+/*20160503
 	if(correctionBigcity==1){
 		genbakanriBigcityCorrection=1.2;
 	}
@@ -306,9 +370,27 @@ function calcStep2(){
 		else{//2015/07/10
 			genbakanriBigcityCorrection=1;//2015/07/10
 		}//2015/07/10
-	}	
+	}
+*/
+//20160503
+	if(correctionBigcity==0){
+		genbakanriBigcityCorrection=1.0;//非適用
+	}
+	else
+	if(correctionBigcity==1){
+		genbakanriBigcityCorrection=1.2;//大都市補正(1)
+	}
+	else
+	if(correctionBigcity==2){
+		genbakanriBigcityCorrection=1.2;//大都市補正(2)
+	}
+	else{
+		genbakanriBigcityCorrection=1.1;//地域補正
+	}
+//20160503
 	rateGenbakanri=genbakanriBigcityCorrection*rateGenbakanri;
 //現場管理費率施工地補正	
+/*
 	if(constructionSegment!=9 && constructionSegment!=19 && constructionSegment!=20){
 		if(correctionArea==1){
 			if(constructionSegment!=4 && constructionSegment!=6 && constructionSegment!=9 && constructionSegment!=11){//2015/07/10
@@ -333,6 +415,23 @@ function calcStep2(){
 	else{
 		rateGenbakanriAreaCorrection=0;
 	}
+*/
+//20160503
+	if(correctionArea==1){
+		rateGenbakanriAreaCorrection=1.5;
+	}
+	else
+	if(correctionArea==2){
+		rateGenbakanriAreaCorrection=0.5;
+	}
+	else
+	if(correctionArea==3){
+		rateGenbakanriAreaCorrection=1;
+	}
+	else{
+		rateGenbakanriAreaCorrection=0;
+	}
+//20160503
 	rateGenbakanri=Math.round(Math.floor((rateGenbakanri+rateGenbakanriAreaCorrection)*1000)/10)/100;
 	if(Np<=lowerLimit || upperLimit<Np){
 		genbaKanriCoefA="*";
