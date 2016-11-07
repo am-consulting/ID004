@@ -29,18 +29,18 @@ function calcStep1(){
 	rateKyoutsuukasetsuList[20]=[7.57,43.7,-0.0898,5.88];//フィルダム工事
 	rateKyoutsuukasetsuList[21]=[27.32,7050.2,-0.3558,6.79];//橋梁保全工事 20160503
 	cost=new Array();
-	cost[1]=parseFloat(document.form1.a.value);//直接工事費
-	cost[2]=parseFloat(document.form1.b.value);//桁等購入費
-	cost[3]=parseFloat(document.form1.c.value);//鋼橋門扉等工場原価
-	cost[4]=parseFloat(document.form1.d.value);//事業損失防止施設費
-	cost[5]=parseFloat(document.form1.e.value);//無償貸与機械等評価額
-	cost[6]=parseFloat(document.form1.f.value);//共通仮設費対象支給品費等
-	cost[7]=parseFloat(document.form1.g.value);//イメージアップ経費対象支給品費等
-	cost[8]=parseFloat(document.form1.h.value);//現場管理費対象支給品費等
-	cost[9]=parseFloat(document.form1.i.value);//直接工事費に含まれる処分費
-	cost[10]=parseFloat(document.form1.j.value);//準備費に含まれる処分費
-	cost[11]=parseFloat(document.form1.k.value);//イメージアップ特別積上額
-	cost[12]=parseFloat(document.form1.l.value);//その他積上分共通仮設費
+	cost[1]=parseFloat(document.form1.a.value.replace(/,/g, ''));//直接工事費
+	cost[2]=parseFloat(document.form1.b.value.replace(/,/g, ''));//桁等購入費
+	cost[3]=parseFloat(document.form1.c.value.replace(/,/g, ''));//鋼橋門扉等工場原価
+	cost[4]=parseFloat(document.form1.d.value.replace(/,/g, ''));//事業損失防止施設費
+	cost[5]=parseFloat(document.form1.e.value.replace(/,/g, ''));//無償貸与機械等評価額
+	cost[6]=parseFloat(document.form1.f.value.replace(/,/g, ''));//共通仮設費対象支給品費等
+	cost[7]=parseFloat(document.form1.g.value.replace(/,/g, ''));//イメージアップ経費対象支給品費等
+	cost[8]=parseFloat(document.form1.h.value.replace(/,/g, ''));//現場管理費対象支給品費等
+	cost[9]=parseFloat(document.form1.i.value.replace(/,/g, ''));//直接工事費に含まれる処分費
+	cost[10]=parseFloat(document.form1.j.value.replace(/,/g, ''));//準備費に含まれる処分費
+	cost[11]=parseFloat(document.form1.k.value.replace(/,/g, ''));//イメージアップ特別積上額
+	cost[12]=parseFloat(document.form1.l.value.replace(/,/g, ''));//その他積上分共通仮設費
 	for(i=1; i<=12; i++){
 		if(isNaN(cost[i]) || cost[i]<0){
 			cost[i]=0;
