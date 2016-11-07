@@ -1,0 +1,294 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+<script src="components/loader.js"></script>
+<link rel="stylesheet" href="components/loader.css">
+<link rel="stylesheet" href="style.css">
+<script src="jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+(function($){
+$(window).on('load',function(){
+ $(".tab li").click(function() {
+     var index = $(".tab li").index(this);
+        $(".content li").css("display","none");
+    	$(".content li").eq(index).css("display","block");
+		$(".tab li").removeClass('select');
+		$(this).addClass("select")
+		calcStep1();
+		calcStep2();
+		calcStep3();
+		thousandSeparator();
+		output01();
+		output02();
+	});
+});
+})(jQuery);
+</script>    
+<script src="expenseCivil.js"></script>
+<script src="thousandSeparator.js"></script>    
+<script src="reload.js"></script>
+<style type="text/css">
+.divsrcollbar {
+  width:       auto;
+  border:      0px;
+  overflow-x:  scroll;
+  overflow-y:  hidden;
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<header>ID:004 公共土木工事共通費計算</header>
+<ul class="tab">
+<li class="select">条件入力</li>
+<li>工事費</li>
+<li>共通費</li>
+<li>参考資料他</li>
+</ul>
+<ul class="content">
+<li>
+<div class="box">
+<FORM name="form1">
+<table><tbody>
+<tr><td><b>工事区分</b><br>&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT style="width:90%" name="constructionSegment" size="1">
+<OPTION value="0">0:河川工事</OPTION>
+<OPTION value="1">1:河川・道路構造物工事</OPTION>
+<OPTION value="2">2:海岸工事</OPTION>
+<OPTION value="3">3:道路改良工事</OPTION>
+<OPTION value="4">4:鋼橋架設工事</OPTION>
+<OPTION value="5">5:PC橋工事</OPTION>
+<OPTION value="6">6:舗装工事</OPTION>
+<OPTION value="7">7:砂防・地すべり等工事</OPTION>
+<OPTION value="8">8:公園工事</OPTION>
+<OPTION value="9">9:電線共同溝工事</OPTION>
+<OPTION value="10">10:情報BOX工事</OPTION>
+<OPTION value="11">11:道路維持工事</OPTION>
+<OPTION value="12">12:河川維持工事</OPTION>
+<OPTION value="13">13:共同溝等(1)工事</OPTION>
+<OPTION value="14">14:共同溝等(2)工事</OPTION>
+<OPTION value="15">15:トンネル工事</OPTION>
+<OPTION value="16">16:下水道工事(1)</OPTION>
+<OPTION value="17">17:下水道工事(2)</OPTION>
+<OPTION value="18">18:下水道工事(3)</OPTION>
+<OPTION value="19">19:コンクリートダム工事</OPTION>
+<OPTION value="20">20:フィルダム工事</OPTION>
+<!--2016-05-03-->
+<OPTION value="21">21:橋梁保全工事</OPTION>
+<!--2016-05-03-->
+</SELECT>
+</td></tr>
+<tr><td><b>直接工事費</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="a" class="input01" size="30">円</td></tr>
+<tr><td><b>桁等購入費</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="b" class="input01" size="30">円</td></tr>
+<tr><td><b>鋼橋門扉等工場原価</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="c" class="input01" size="30">円</td></tr>
+<tr><td><b>事業損失防止施設費</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="d" class="input01" size="30">円</td></tr>
+<tr><td><b>無償貸与機械等評価額</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="e" class="input01" size="30">円</td></tr>
+<tr><td><b>共通仮設費対象支給品費等</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="f" class="input01" size="30">円</td></tr>
+<tr><td><b>イメージアップ経費対象支給品費等</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="g" class="input01" size="30">円</td></tr>
+<tr><td><b>現場管理費対象支給品費等</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="h" class="input01" size="30">円</td></tr>
+<tr><td><b>直接工事費に含まれる処分費</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="i" class="input01" size="30">円</td></tr>
+<tr><td><b>準備費に含まれる処分費</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="j" class="input01" size="30">円</td></tr>
+<tr><td><b>イメージアップ特別積上額</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="k" class="input01" size="30">円</td></tr>
+<tr><td><b>その他積上分共通仮設費</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="l" class="input01" size="30">円</td></tr>
+<tr><td><b>率計算分イメージアップ経費</b><br>&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT style="width:90%" name="allocateImageup" size="1">
+<OPTION value="0">計上しない</OPTION>
+<OPTION value="1">計上する</OPTION>
+</SELECT>
+</td></tr>
+<!--2016-05-03-->
+<tr><td><b>イメージアップ経費補正(加算)</b><br>&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT style="width:90%" name="correctionRateImageup" size="1">
+<OPTION value="0">補正しない</OPTION>
+<OPTION value="1.5">補正する +1.5%</OPTION> 
+</SELECT>
+</td></tr>
+<!--2016-05-03-->
+<tr><td><b>施工時期・工事期間等補正</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="correctionPeriod" class="input01" size="30">%</td></tr>
+<tr><td><b>契約保証補正</b><br>&nbsp;&nbsp;&nbsp;&nbsp;<INPUT type="number" style="ime-mode:disabled;text-align:right" name="correctionContract" class="input01" size="30">%</td></tr>
+<tr><td><b>前払金支出割合区分</b><br>&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT style="width:90%" name="correctionMaebaraikin" size="1">
+<OPTION value="1.00">35％超40％以下</OPTION>
+<OPTION value="1.01">25％超35％以下</OPTION>
+<OPTION value="1.03">15％超25％以下</OPTION>
+<OPTION value="1.04">5％超15％以下</OPTION>
+<OPTION value="1.05">5％以下</OPTION>
+</SELECT>
+</td></tr>
+<!--2016-05-03-->
+<tr><td><b>施工地域・工事場所区分(加算)</b><br>&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT style="width:90%" name="correctionArea" size="1">
+<OPTION value="0">補正非適用:共 0、現 0</OPTION>
+<OPTION value="1">市街地:共 2.0、現 1.5</OPTION>
+<OPTION value="2">山間僻地及び離島:共 1.0、現 0.5</OPTION>
+<OPTION value="3">地方部_一般交通等の影響有り:共 1.5、現 1.0</OPTION>
+<OPTION value="4">地方部_一般交通等の影響なし:共 0、現 0</OPTION> 
+</SELECT>
+</td></tr>
+<!--2016-05-03-->
+<!--2016-05-03-->
+<tr><td><b>大都市補正/市街地補正(乗算)</b><br>&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT style="width:90%" name="correctionBigcity" size="1">
+<OPTION value="0">非適用:共 1.0,現 1.0</OPTION>
+<OPTION value="1">大都市補正(1):共 2.0,現 1.2</OPTION>
+<OPTION value="2">大都市補正(2):共 1.5,現 1.2</OPTION>
+<OPTION value="3">地域補正(市街地):共 1.3,現 1.1</OPTION>
+</SELECT>
+</td></tr>
+<!--2016-05-03-->
+<tr><td><b>消費税</b><br>&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT style="width:90%" name="rateConsumptionTax" size="1">
+<OPTION value="8">8%</OPTION>
+<OPTION value="10">10%</OPTION>
+</SELECT>
+</td></tr>
+<tr><td><b>桁丸め</b><br>&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT style="width:90%" name="ketaMarume" size="1">
+<OPTION value="3">3桁</OPTION>
+<OPTION value="0">丸め無し</OPTION>
+<OPTION value="1">1桁</OPTION>
+<OPTION value="2">2桁</OPTION>
+<OPTION value="4">4桁</OPTION>
+</SELECT>
+</td></tr>
+</tbody></table> 
+</FORM> 
+</div>
+<div align="center">
+<input type="button" value="入力条件のリセット" onclick="Reload()"  class="box">
+</div>
+<div class="box">
+タブを切り替えると計算が実行されます。
+</div>
+</li>
+<li class="hide">
+<div class="box">
+<b>工事費</b><br>
+<FORM name="form2">
+<table rules="rows"><tbody>
+<tr><td style="width:50%;text-align:right">工事種別</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="constructionSegment" size="20"></td></tr>
+<tr><td style="text-align:right">直接工事費(円)</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="a" size="20"></td></tr>
+<tr><td style="text-align:right">純工事費(円)</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="costJyunkouji" size="20"></td></tr>
+<tr><td style="text-align:right">工事原価(円)</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="costKoujiGenka" size="20"></td></tr>
+<tr><td style="text-align:right">工事価格(円)</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="costKoujiKakaku" size="20"></td></tr>
+<tr><td style="text-align:right">消費税(円)</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="consumptionTax" size="20"></td></tr>
+<tr><td style="text-align:right">工事費(円)</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="finalConstructionCost" size="20"></td></tr>
+</tbody></table>
+</form>
+</div>
+<div class="box">
+<div class="divsrcollbar">
+<table rules="rows"><tbody>
+<tr><td>純工事費 = 直接工事費 + 共通仮設費</td></tr>
+<tr><td>工事原価 = 純工事費 + 現場管理費</td></tr>
+<tr><td>工事価格 = 工事原価 + 一般管理費</td></tr>
+<tr><td>消費税 = 工事価格 * 消費税率</td></tr>
+<tr><td>工事費 = 工事価格 + 消費税</td></tr>
+<tr><td>共通費合計 = 共通仮設費 + 現場管理費 + 一般管理費</td></tr>
+<tr><td>対直接工事費共通費率 = 共通費合計 ÷ 直接工事費 * 100</td></tr>
+</tbody></table>
+</div>
+</div>
+</li>
+<li class="hide">
+<div class="box">
+<b>共通費</b><br>
+<FORM name="form3">
+<table rules="rows"><tbody>
+<tr><td style="width:65%;text-align:right">共通仮設費</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="expenseKyoutsuukasetsu" size="14"></td></tr>
+<tr><td style="text-align:right">現場管理費</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="expenseGenbakanri" size="14"></td></tr>
+<tr><td style="text-align:right">一般管理費</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="expenseIppankanri" size="14"></td></tr>
+<tr><td style="text-align:right">共通費合計</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="totalExpense" size="14"></td></tr>
+<tr><td style="text-align:right">対直接工事費共通費比率</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="rateTotalExpense" size="14"></td></tr>
+<tr><td style="text-align:right">ｲﾒｰｼﾞｱｯﾌﾟ経費率</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="rateImageup" size="14"></td></tr>
+<tr><td style="text-align:right">共通仮設費率</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="rateKyoutsuukasetsu" size="14"></td></tr>
+<tr><td style="text-align:right">現場管理費率</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="rateGenbakanri" size="14"></td></tr>
+<tr><td style="text-align:right">一般管理費率</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="rateIppanKanri" size="14"></td></tr>
+<tr><td style="text-align:right">共通仮設費対象額</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="coverageKyoutsuukasetsu" size="14"></td></tr>
+<tr><td style="text-align:right">処分費等の占める割合</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="ratio" size="14"></td></tr>
+<tr><td style="text-align:right">計上対象処分費等</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="allocateShobunCost" size="14"></td></tr>
+<tr><td style="text-align:right">率計算共通仮設費対象額</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="P" size="14"></td></tr>
+<tr><td style="text-align:right">率計算分共通仮設費</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="kyoutsuuKasetsuByRate" size="14"></td></tr>
+<tr><td style="text-align:right">率計算ｲﾒｰｼﾞｱｯﾌﾟ経費対象額</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="Pi" size="14"></td></tr>
+<tr><td style="text-align:right">率計算分ｲﾒｰｼﾞｱｯﾌﾟ経費</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="Ki" size="14"></td></tr>
+<tr><td style="text-align:right">率計算現場管理費対象額</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="Np" size="14"></td></tr>
+<tr><td style="text-align:right">率計算一般管理費対象額</td><td><input type="text" style="ime-mode:disabled;text-align:right" name="Gp" size="14"></td></tr>
+</tbody></table>
+</form>
+</div>
+</li>
+<li class="hide">
+<div class="box">
+<div class="divsrcollbar">
+<b>共通費計算ソースコード</b><br>
+<!--
+<a href="https://github.com/am-consulting/Javascript/blob/master/expenseCivil.js">https://github.com/am-consulting/Javascript/blob/master/expenseCivil.js</a>
+-->
+<a href="https://github.com/am-consulting/ID004/blob/master/www/expenseCivil.js">https://github.com/am-consulting/ID004/blob/master/www/expenseCivil.js</a>
+</div>
+</div>
+<div class="box">
+<div class="divsrcollbar">
+<b>参考資料</b><br>
+・<a href="http://www.mlit.go.jp/report/press/kanbo08_hh_000334.html" title="" class="ext-link ext-icon-6" target="_blank">『国土交通省土木工事積算基準等の改定について』(平成28年3月14日）</a><br>
+・<a href="http://www.mlit.go.jp/report/press/kanbo08_hh_000296.html" title="" class="ext-link ext-icon-6" target="_blank">『国土交通省土木工事積算基準等の改定について』(平成27年3月11日）</a><br>
+・国土交通省web site.『国土交通省土木工事積算基準等の改正について 平成24年3月30日 国土交通省直轄土木工事における法定福利費の確保について 別紙-3』<br>
+・国土交通省web site.『国土交通省土木工事積算基準等の改正について 平成21年3月30日 別紙-2』<br>
+・国土交通省web site.『国土交通省土木工事積算基準等の改正について 平成20年3月28日 別表-1 基準類改正』<br>
+・国土交通省大臣官房技術調査課監修.『国土交通書土木工事積算基準　平成19年度版』<br>
+・財団法人建設物価調査会.『土木工事積算基準マニュアル　平成19年度版』
+</div>
+</div>
+<div class="box">
+<b>共通仮設費</b><br>
+<table rules="rows"><tbody>
+<tr><td style="width:25%;">共通仮設費対象額</td><td>直接工事費-桁等購入費-鋼橋門扉等工場原価+事業損失防止施設費+無償貸与機械等評価額+共通仮設費対象支給品費等</td></tr>
+<tr><td>処分費等の占める割合</td><td>(直接工事費に含まれる準備費+準備費に含まれる処分費)/(共通仮設費対象額+準備費に含まれる処分費)</td></tr>
+<tr><td>率計算共通仮設費対象額</td><td>共通仮設費対象額-直接工事費に含まれる処分費+計上対象処分費</td></tr>
+<tr><td>共通仮設費率</td><td>共通仮設費率(補正前)*大都市補正+施工地域･工事場所区分補正</td></tr>
+<tr><td>率計算分共通仮設費</td><td>率計算共通仮設費対象額*共通仮設費率</td></tr>
+<tr><td>率計算ｲﾒｰｼﾞｱｯﾌﾟ経費対象額</td><td>直接工事費-直接工事費に含まれる処分費+無償貸与機械等評価額+ｲﾒｰｼﾞｱｯﾌﾟ経費対象支給品費等</td></tr>
+<tr><td>ｲﾒｰｼﾞｱｯﾌﾟ経費率</td><td>ｲﾒｰｼﾞｱｯﾌﾟ経費率(補正前)+施工地域･工事場所区分補正</td></tr>
+<tr><td>率計算分ｲﾒｰｼﾞｱｯﾌﾟ経費</td><td>率計算ｲﾒｰｼﾞｱｯﾌﾟ経費対象額*ｲﾒｰｼﾞｱｯﾌﾟ経費率</td></tr>
+<tr><td>共通仮設費合計</td><td>率計算分共通仮設費+率計算分ｲﾒｰｼﾞｱｯﾌﾟ経費+事業損失防止施設費+ｲﾒｰｼﾞｱｯﾌﾟ特別計上額+その他積上共通仮設費</td></tr>
+</tbody></table>
+</div>
+<div class="box">
+<b>現場管理費</b><br>
+<table rules="rows"><tbody>
+<tr><td style="width:25%;">率計算現場管理費対象額</td><td>直接工事費-鋼橋門扉等工場原価+無償貸与機械等評価額+共通仮設費+現場管理費対象支給品費等-直接工事費に含まれる準備費-準備費に含まれる処分費+計上対象処分費</td></tr>
+<tr><td>現場管理費率</td><td>現場管理費率(補正前)*大都市補正+施工地域･工事場所区分補正+施工時期･工事期間補正</td></tr>
+<tr><td>現場管理費</td><td>率計算現場管理費対象額*現場管理費率</td></tr>
+</tbody></table>
+</div>
+<div class="box">
+<b>一般管理費</b><br>
+<table rules="rows"><tbody>
+<tr><td style="width:25%;">率計算一般管理費対象額</td><td>直接工事費+共通仮設費+現場管理費-直接工事費に含まれる準備費-準備費に含まれる処分費+計上対象処分費</td></tr>
+<tr><td>一般管理費率</td><td>一般管理費(補正前)*前払金支出割合補正+契約保証補正</td></tr>
+<tr><td>一般管理費</td><td>率計算一般管理費対象額*一般管理費率</td></tr>
+</tbody></table>
+</div>
+<div class="box">
+<div class="divsrcollbar">
+<b>参考･利用コード</b><br>
+･<a href="http://blog.three-co.jp/web/558/">http://blog.three-co.jp/web/558/</a><br>
+･jquery-2.1.1.min.js
+</div>
+</div>
+<div class="box">
+<b>免責事項</b><br>
+本アプリケーションの使用に起因して当該使用者または第三者に発生する損失・損害・要求・責務・損害賠償責任等その他一切の法的問題・刑事責任・民事責任及び行政上の責任からアセット・マネジメント・コンサルティング株式会社、その関係会社、その取締役およびその従業員は免責されます。
+</div>
+</li>
+</ul>
+<div class="box">
+<b>制作会社</b><br>
+アセット・マネジメント・コンサルティング株式会社 <a href="http://am-consulting.co.jp" target="_blank">http://am-consulting.co.jp</a><br>代表取締役 三竹道雄<br>
+
+</div>
+</body>
+</html>
